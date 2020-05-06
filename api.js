@@ -6,8 +6,10 @@ const Guardian = axios.create({
   headers: { 'api-key': config.apiKey },
 })
 
-export const fetchArticles = () => {
-  return Guardian.get('/search')
+export const fetchArticles = (query) => {
+  return Guardian.get('/search', {
+    params: query,
+  })
     .then((data) => {
       return data
     })

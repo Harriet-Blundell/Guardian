@@ -1,12 +1,42 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import * as api from './api'
+import { StyleSheet, Text, View, FlatList } from 'react-native'
+import ArticleCard from './Components/ArticleCard.js'
+import Header from './Components/Header'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
+export default class App extends React.Component {
+  state = {
+    articles: [],
+    isLoading: true,
+  }
+
+  componentDidMount() {
+    api.fetchArticles({ orderBy: 'newest' }).then(({ data }) => {
+      this.setState({
+        articles: data.response.results,
+        isLoading: false,
+      })
+    })
+  }
+
+  render() {
+    const { isLoading, articles } = this.state
+
+    return (
+      <View style={styles.container}>
+        {isLoading && <Text>Loading...</Text>}
+
+        <Header />
+
+        <FlatList
+          data={articles}
+          renderItem={({ item }) => {
+            return <ArticleCard articleInfo={item} />
+          }}
+        />
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -16,4 +46,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+})
