@@ -3,13 +3,13 @@ import * as api from './api'
 import { StyleSheet, Text, View, FlatList, ScrollView } from 'react-native'
 import ArticleCard from './Components/ArticleCard.js'
 import Header from './Components/Header.js'
-import ArticlesBySection from './Components/ArticlesBySection'
+import Pagination from './Components/Pagination.js'
 
 export default class App extends React.Component {
   state = {
     newestArticles: [],
-    articles: [],
     currentPage: 1,
+    totalPages: 0,
     isLoading: true,
   }
 
@@ -17,31 +17,52 @@ export default class App extends React.Component {
     api
       .fetchArticles({
         page: 1,
-        orderBy: 'newest',
+        'order-by': 'newest',
         'page-size': 5,
         'show-fields': 'thumbnail',
       })
       .then(({ data }) => {
+        const { results, currentPage, pages } = data.response
         this.setState({
-          newestArticles: data.response.results,
+          newestArticles: results,
+          currentPage: currentPage,
+          totalPages: pages,
           isLoading: false,
         })
       })
   }
 
-  // getArticlesBySection(page, section) {
-  //   api
-  //     .fetchArticles({ page: 1, section: this.props.section })
-  //     .then(({ data }) => {
-  //       this.setState({
-  //         articles: data.response.results,
-  //         isLoading: false,
-  //       })
-  //     })
-  // }
+  componentDidUpdate(prevProp, prevState) {
+    if (prevState.currentPage !== this.state.currentPage) {
+      console.log(this.state.currentPage, 'IN COMPONENTDIDUPDATE')
+      api
+        .fetchArticles({
+          page: this.state.currentPage,
+          'show-fields': 'thumbnail',
+          'page-size': 5,
+          'order-by': 'newest',
+        })
+        .then(({ data }) => {
+          console.log(data, 'i am in app.js')
+          const { results, currentPage, pages } = data.response
+          this.setState({
+            newestArticles: results,
+            currentPage: currentPage,
+            totalPages: pages,
+            isLoading: false,
+          })
+        })
+    }
+  }
+
+  handlePageClick(number) {
+    this.setState({
+      currentPage: this.state.currentPage + number,
+    })
+  }
 
   render() {
-    const { isLoading, newestArticles } = this.state
+    const { isLoading, newestArticles, currentPage } = this.state
 
     return (
       <View style={styles.container}>
@@ -58,10 +79,11 @@ export default class App extends React.Component {
               }}
             />
           </View>
+          <Pagination
+            handlePageClick={this.handlePageClick.bind(this)}
+            currentPage={currentPage}
+          />
         </ScrollView>
-        {/* <ArticlesBySection
-          getArticlesBySection={this.getArticlesBySection.bind(this)}
-        /> */}
       </View>
     )
   }
@@ -76,9 +98,9 @@ const styles = StyleSheet.create({
   },
 
   mostRecent: {
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: 'bold',
-    color: '#4682B4',
+    color: 'black',
     textAlign: 'center',
   },
 })
