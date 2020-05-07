@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Button, StyleSheet, Text, TouchableOpacity } from 'react-native'
 
 const Pagination = (props) => {
-  const { currentPage, handlePageClick } = props
+  const { currentPage, handlePageClick, totalPages } = props
 
   return (
     <View style={styles.buttonsContainer}>
@@ -19,7 +19,10 @@ const Pagination = (props) => {
         </View>
       </TouchableOpacity>
 
-      <Text style={styles.pageNumber}>Page: {currentPage}</Text>
+      <Text style={styles.pageNumber}>
+        {' '}
+        {currentPage} / {totalPages}
+      </Text>
 
       <TouchableOpacity
         onPress={() => {
@@ -74,6 +77,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#4682B4',
   },
+
   buttonNextText: {
     textAlign: 'center',
     padding: 10,

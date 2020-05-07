@@ -11,8 +11,6 @@ import {
 class Subscribe extends Component {
   state = {
     email: '',
-    subscribed: false,
-    error: false,
   }
 
   handleChange = (value) => {
@@ -28,6 +26,9 @@ class Subscribe extends Component {
 
     if (email === '' || emailRegex.test(email) === false) {
       Alert.alert('Please enter a valid email address')
+      this.setState({
+        email: '',
+      })
     } else {
       Alert.alert('You have successfully subscribed to the Guardian!'),
         this.setState({
@@ -37,18 +38,21 @@ class Subscribe extends Component {
   }
 
   render() {
-    const { email, error } = this.state
+    const { email } = this.state
     return (
-      <View>
-        <Text style={styles.subscribeText}>
-          Enjoy what you're reading?, why not subscribe?
+      <View style={styles.subscribeInputContainer}>
+        <Text
+          style={{
+            backgroundColor: '#191970',
+            textAlign: 'center',
+            paddingLeft: 70,
+            paddingRight: 70,
+          }}
+        >
+          <Text style={styles.subscribeText}>
+            Subscribe to get updates on the latest news...
+          </Text>
         </Text>
-
-        {error !== 'false' ? (
-          <Text style={styles.errorMsg}>{error}</Text>
-        ) : (
-          !error
-        )}
 
         <TextInput
           style={styles.textInput}
@@ -56,7 +60,6 @@ class Subscribe extends Component {
           onChangeText={(value) => this.handleChange(value)}
           placeholder='Enter e-mail address'
         />
-
         <TouchableOpacity onPress={() => this.handleSubmit()}>
           <View style={styles.subscribeBtnContainer}>
             <Text style={styles.subscribeBtnText}>SUBSCRIBE</Text>
@@ -68,38 +71,46 @@ class Subscribe extends Component {
 }
 
 const styles = StyleSheet.create({
+  subscribeInputContainer: {
+    backgroundColor: 'whitesmoke',
+  },
+
   subscribeText: {
     fontSize: 20,
     fontWeight: 'bold',
-    textAlign: 'center',
-    backgroundColor: '#4682B4',
+    height: 30,
     color: 'white',
-    marginTop: 15,
   },
 
   textInput: {
     height: 40,
-    borderColor: 'whitesmoke',
-    borderWidth: 2,
     width: 300,
     marginLeft: 50,
     marginRight: 50,
     marginTop: 10,
     textAlign: 'center',
     fontSize: 20,
+    elevation: 5,
+    backgroundColor: 'white',
+    borderRadius: 5,
   },
 
   subscribeBtnContainer: {
     justifyContent: 'center',
     marginTop: 10,
-    width: 90,
+    width: 100,
+    height: 35,
     borderRadius: 5,
-    backgroundColor: '#4682B4',
+    backgroundColor: 'black',
+    marginLeft: 150,
+    marginBottom: 5,
+    elevation: 5,
   },
 
   subscribeBtnText: {
     color: 'white',
     textAlign: 'center',
+    fontWeight: 'bold',
   },
 
   errorMsg: {

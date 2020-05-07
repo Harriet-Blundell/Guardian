@@ -10,6 +10,7 @@ export default class App extends React.Component {
   state = {
     newestArticles: [],
     currentPage: 1,
+    totalPages: 0,
     isLoading: true,
     error: null,
   }
@@ -23,15 +24,16 @@ export default class App extends React.Component {
         'show-fields': 'thumbnail',
       })
       .then(({ data }) => {
-        const { results, currentPage } = data.response
+        const { results, currentPage, pages } = data.response
         this.setState({
           newestArticles: results,
           currentPage: currentPage,
+          totalPages: pages,
           isLoading: false,
         })
       })
       .catch((err) => {
-        console.log(err, 'err is here')
+        console.log(err)
       })
   }
 
@@ -45,11 +47,11 @@ export default class App extends React.Component {
           'order-by': 'newest',
         })
         .then(({ data }) => {
-          const { results, currentPage } = data.response
-
+          const { results, currentPage, pages } = data.response
           this.setState({
             newestArticles: results,
             currentPage: currentPage,
+            totalPages: pages,
             isLoading: false,
           })
         })
@@ -63,7 +65,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { isLoading, newestArticles, currentPage } = this.state
+    const { isLoading, newestArticles, currentPage, totalPages } = this.state
 
     return (
       <View style={styles.container}>
@@ -71,7 +73,8 @@ export default class App extends React.Component {
 
         <Header />
         <ScrollView>
-          <Text style={styles.mostRecent}>Most Recent</Text>
+          <Text style={styles.mostRecentText}>Most Recent</Text>
+
           <View>
             <FlatList
               data={newestArticles}
@@ -80,11 +83,14 @@ export default class App extends React.Component {
               }}
             />
           </View>
-          <SubscribeInput />
+
           <Pagination
             handlePageClick={this.handlePageClick.bind(this)}
             currentPage={currentPage}
+            totalPages={totalPages}
           />
+
+          <SubscribeInput />
         </ScrollView>
       </View>
     )
@@ -99,11 +105,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  mostRecent: {
+  mostRecentText: {
     fontSize: 25,
     fontWeight: 'bold',
     color: 'white',
-    textAlign: 'center',
     backgroundColor: '#191970',
+    paddingLeft: 20,
   },
 })

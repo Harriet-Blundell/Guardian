@@ -32,10 +32,8 @@ const ArticleCard = (props) => {
 
 const styles = StyleSheet.create({
   images: {
-    width: '95%',
+    width: '99.8%',
     height: 170,
-    marginLeft: 10,
-    marginTop: 10,
   },
 
   articleTitle: {
@@ -67,17 +65,15 @@ const styles = StyleSheet.create({
 
   articleContainer: {
     borderWidth: 1,
-    borderRadius: 2,
+    borderRadius: 1,
     borderColor: '#ddd',
-    borderBottomWidth: 0,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
+    borderBottomWidth: 1,
+    borderTopWidth: 1.5,
     elevation: 1,
     marginLeft: 15,
     marginRight: 15,
     marginTop: 15,
+    backgroundColor: '#FFFAFA',
   },
 })
 
