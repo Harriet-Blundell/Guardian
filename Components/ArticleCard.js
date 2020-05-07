@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
-import formatDate from '../utils.js'
+import { formatDate } from '../utils.js'
 import { Linking } from 'expo'
 
 const ArticleCard = (props) => {
@@ -14,19 +14,17 @@ const ArticleCard = (props) => {
 
   return (
     <View style={styles.articleContainer}>
-      <Image style={styles.images} source={{ uri: fields.thumbnail }} />
+      {fields && (
+        <Image style={styles.images} source={{ uri: fields.thumbnail }} />
+      )}
 
       <Text style={styles.articleTitle} onPress={() => Linking.openURL(webUrl)}>
         {webTitle}
       </Text>
 
-      <Text style={styles.articleName}>
-        <Text style={styles.articleTopic}>Topic: </Text>
-        {sectionName}
-      </Text>
-
       <Text style={styles.articleDate}>
-        Published: {formatDate(webPublicationDate)}
+        Published: {formatDate(webPublicationDate)} |{' '}
+        <Text style={styles.articleName}>{sectionName}</Text>
       </Text>
     </View>
   )
@@ -56,14 +54,14 @@ const styles = StyleSheet.create({
   articleName: {
     marginLeft: 10,
     marginBottom: 10,
-    fontSize: 20,
+    fontSize: 17,
     color: '#4682B4',
     fontWeight: 'bold',
   },
 
   articleDate: {
     marginLeft: 10,
-    fontSize: 15,
+    fontSize: 17,
     marginBottom: 10,
   },
 

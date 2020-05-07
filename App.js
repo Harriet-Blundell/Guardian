@@ -4,13 +4,14 @@ import { StyleSheet, Text, View, FlatList, ScrollView } from 'react-native'
 import ArticleCard from './Components/ArticleCard.js'
 import Header from './Components/Header.js'
 import Pagination from './Components/Pagination.js'
+import Subscribe from './Components/Subscribe.js'
 
 export default class App extends React.Component {
   state = {
     newestArticles: [],
     currentPage: 1,
-    totalPages: 0,
     isLoading: true,
+    error: null,
   }
 
   componentDidMount() {
@@ -22,19 +23,20 @@ export default class App extends React.Component {
         'show-fields': 'thumbnail',
       })
       .then(({ data }) => {
-        const { results, currentPage, pages } = data.response
+        const { results, currentPage } = data.response
         this.setState({
           newestArticles: results,
           currentPage: currentPage,
-          totalPages: pages,
           isLoading: false,
         })
+      })
+      .catch((err) => {
+        console.log(err, 'err is here')
       })
   }
 
   componentDidUpdate(prevProp, prevState) {
     if (prevState.currentPage !== this.state.currentPage) {
-      console.log(this.state.currentPage, 'IN COMPONENTDIDUPDATE')
       api
         .fetchArticles({
           page: this.state.currentPage,
@@ -43,12 +45,11 @@ export default class App extends React.Component {
           'order-by': 'newest',
         })
         .then(({ data }) => {
-          console.log(data, 'i am in app.js')
-          const { results, currentPage, pages } = data.response
+          const { results, currentPage } = data.response
+
           this.setState({
             newestArticles: results,
             currentPage: currentPage,
-            totalPages: pages,
             isLoading: false,
           })
         })
@@ -70,8 +71,8 @@ export default class App extends React.Component {
 
         <Header />
         <ScrollView>
+          <Text style={styles.mostRecent}>Most Recent</Text>
           <View>
-            <Text style={styles.mostRecent}>Most Recent:</Text>
             <FlatList
               data={newestArticles}
               renderItem={({ item }) => {
@@ -79,6 +80,7 @@ export default class App extends React.Component {
               }}
             />
           </View>
+          <Subscribe />
           <Pagination
             handlePageClick={this.handlePageClick.bind(this)}
             currentPage={currentPage}
@@ -98,9 +100,10 @@ const styles = StyleSheet.create({
   },
 
   mostRecent: {
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: 'bold',
-    color: 'black',
+    color: 'white',
     textAlign: 'center',
+    backgroundColor: '#191970',
   },
 })
