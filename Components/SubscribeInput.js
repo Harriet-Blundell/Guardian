@@ -16,7 +16,6 @@ class Subscribe extends Component {
   }
 
   handleChange = (value) => {
-    console.log(value, 'value of input')
     this.setState({
       email: value,
     })
