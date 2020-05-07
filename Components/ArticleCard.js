@@ -1,6 +1,5 @@
 import React from 'react'
-import { NativeRouter, Route, Link } from 'react-router-native'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Image } from 'react-native'
 import formatDate from '../utils.js'
 import { Linking } from 'expo'
 
@@ -10,17 +9,16 @@ const ArticleCard = (props) => {
     webTitle,
     webUrl,
     sectionName,
+    fields,
   } = props.articleInfo
 
   return (
     <View style={styles.articleContainer}>
-      <TouchableOpacity
-        onPress={() => {
-          Linking.openURL(webUrl)
-        }}
-      />
+      <Image style={styles.images} source={{ uri: fields.thumbnail }} />
 
-      <Text style={styles.articleTitle}>{webTitle}</Text>
+      <Text style={styles.articleTitle} onPress={() => Linking.openURL(webUrl)}>
+        {webTitle}
+      </Text>
 
       <Text style={styles.articleName}>
         <Text style={styles.articleTopic}>Topic: </Text>
@@ -35,6 +33,13 @@ const ArticleCard = (props) => {
 }
 
 const styles = StyleSheet.create({
+  images: {
+    width: '95%',
+    height: 170,
+    marginLeft: 10,
+    marginTop: 10,
+  },
+
   articleTitle: {
     marginTop: 10,
     marginBottom: 10,
@@ -52,7 +57,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginBottom: 10,
     fontSize: 20,
-    color: '#1E90FF',
+    color: '#4682B4',
     fontWeight: 'bold',
   },
 
