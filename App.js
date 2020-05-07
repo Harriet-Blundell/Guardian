@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, FlatList, ScrollView } from 'react-native'
 import ArticleCard from './Components/ArticleCard.js'
 import Header from './Components/Header.js'
 import Pagination from './Components/Pagination.js'
-import Subscribe from './Components/Subscribe.js'
+import SubscribeInput from './Components/SubscribeInput.js'
 
 export default class App extends React.Component {
   state = {
@@ -80,7 +80,7 @@ export default class App extends React.Component {
               }}
             />
           </View>
-          <Subscribe />
+          <SubscribeInput />
           <Pagination
             handlePageClick={this.handlePageClick.bind(this)}
             currentPage={currentPage}
