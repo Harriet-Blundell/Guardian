@@ -5,12 +5,15 @@ import ArticleCard from './Components/ArticleCard.js'
 import Header from './Components/Header.js'
 import Pagination from './Components/Pagination.js'
 import SubscribeInput from './Components/SubscribeInput.js'
+import SearchInput from './Components/SearchInput.js'
 
 export default class App extends React.Component {
   state = {
     newestArticles: [],
+    articles: [],
     currentPage: 1,
     totalPages: 0,
+    searchInput: '',
     isLoading: true,
     error: null,
   }
@@ -24,10 +27,9 @@ export default class App extends React.Component {
         'show-fields': 'thumbnail',
       })
       .then(({ data }) => {
-        const { results, currentPage, pages } = data.response
+        const { results, pages } = data.response
         this.setState({
           newestArticles: results,
-          currentPage: currentPage,
           totalPages: pages,
           isLoading: false,
         })
@@ -50,17 +52,24 @@ export default class App extends React.Component {
           const { results, currentPage, pages } = data.response
           this.setState({
             newestArticles: results,
-            currentPage: currentPage,
-            totalPages: pages,
             isLoading: false,
           })
         })
     }
   }
 
+  getArticlesBySearchInput = (page, keyword) => {}
+
+  handleSearchInput = (value) => {
+    this.setState({
+      searchInput: value,
+    })
+  }
+
   handlePageClick(number) {
     this.setState({
       currentPage: this.state.currentPage + number,
+      isLoading: true,
     })
   }
 
@@ -72,7 +81,9 @@ export default class App extends React.Component {
         {isLoading && <Text>Loading...</Text>}
 
         <Header />
+
         <ScrollView>
+          <SearchInput handleSearchInput={this.handleSearchInput.bind(this)} />
           <Text style={styles.mostRecentText}>Most Recent</Text>
 
           <View>
