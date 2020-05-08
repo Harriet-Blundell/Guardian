@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { formatDate } from '../utils.js'
 import { Linking } from 'expo'
 
@@ -10,7 +10,10 @@ const ArticleCard = (props) => {
     webUrl,
     sectionName,
     fields,
+    apiUrl,
   } = props.articleInfo
+
+  const { navigation } = props
 
   return (
     <View style={styles.articleContainer}>
@@ -18,9 +21,11 @@ const ArticleCard = (props) => {
         <Image style={styles.images} source={{ uri: fields.thumbnail }} />
       )}
 
-      <Text style={styles.articleTitle} onPress={() => Linking.openURL(webUrl)}>
-        {webTitle}
-      </Text>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('SingleArticle', { apiUrl: apiUrl })}
+      >
+        <Text style={styles.articleTitle}>{webTitle}</Text>
+      </TouchableOpacity>
 
       <Text style={styles.articleDate}>
         Published: {formatDate(webPublicationDate)} |{' '}

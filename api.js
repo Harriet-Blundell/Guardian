@@ -17,3 +17,15 @@ export const fetchArticles = (query) => {
       console.log(err)
     })
 }
+
+export const fetchSingleArticle = (qeury) => {
+  return Guardian.get('/search', {
+    params: query,
+  })
+    .then((data) => {
+      return data
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}

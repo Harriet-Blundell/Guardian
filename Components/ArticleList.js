@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
 import * as api from '../api'
-import { StyleSheet, Text, View, FlatList, ScrollView } from 'react-native'
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  ScrollView,
+  Button,
+} from 'react-native'
 import ArticleCard from './ArticleCard.js'
 import Pagination from './Pagination.js'
 
@@ -63,6 +70,7 @@ class ArticleList extends Component {
 
   render() {
     const { isLoading, newestArticles, currentPage, totalPages } = this.state
+
     return (
       <View style={styles.container}>
         {isLoading && <Text>Loading...</Text>}
@@ -74,7 +82,12 @@ class ArticleList extends Component {
             <FlatList
               data={newestArticles}
               renderItem={({ item }) => {
-                return <ArticleCard articleInfo={item} />
+                return (
+                  <ArticleCard
+                    articleInfo={item}
+                    navigation={this.props.navigation}
+                  />
+                )
               }}
             />
           </View>
