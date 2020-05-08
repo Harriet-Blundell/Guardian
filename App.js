@@ -71,18 +71,18 @@ export default class App extends React.Component {
       currentPage: this.state.currentPage + number,
       isLoading: true,
     })
+    this.refs._scrollView.scrollTo({ x: 0 })
   }
 
   render() {
     const { isLoading, newestArticles, currentPage, totalPages } = this.state
-
     return (
       <View style={styles.container}>
         {isLoading && <Text>Loading...</Text>}
 
         <Header />
 
-        <ScrollView>
+        <ScrollView ref='_scrollView'>
           <SearchInput handleSearchInput={this.handleSearchInput.bind(this)} />
           <Text style={styles.mostRecentText}>Most Recent</Text>
 
