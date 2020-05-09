@@ -1,19 +1,23 @@
 import { createStackNavigator } from 'react-navigation-stack'
 import { createAppContainer } from 'react-navigation'
-import ArticleList from '../Components/ArticleList'
+import Home from '../Components/Home'
 import SingleArticle from '../Components/SingleArticle'
+import ArticleList from '../Components/ArticleList'
 import Header from '../Components/Header'
 import React from 'react'
 
 const screens = {
   Home: {
-    screen: ArticleList,
+    screen: Home,
   },
   SingleArticle: {
     screen: SingleArticle,
     navigationOptions: {
       headerLeft: null,
     },
+  },
+  ArticleList: {
+    screen: ArticleList,
   },
 }
 

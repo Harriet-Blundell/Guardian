@@ -1,52 +1,51 @@
 import React, { Component } from 'react'
-import * as api from '../api'
-import { StyleSheet, Text, View, FlatList, ScrollView } from 'react-native'
+import { View, Text, FlatList } from 'react-native'
+import * as api from '../api.js'
 import ArticleCard from './ArticleCard.js'
-import Pagination from './Pagination.js'
+import Pagination from '../Components/Pagination.js'
 
 class ArticleList extends Component {
   state = {
-    newestArticles: [],
+    articles: [],
     currentPage: 1,
     totalPages: 0,
+    totalArticles: '',
     isLoading: true,
-    error: null,
   }
 
   componentDidMount() {
+    const searchTerm = this.props.navigation.getParam('searchTerm')
+
     api
       .fetchArticles({
-        page: 1,
-        'order-by': 'newest',
+        q: searchTerm,
         'page-size': 5,
         'show-fields': 'thumbnail',
       })
       .then(({ data }) => {
-        const { results, pages } = data.response
         this.setState({
-          newestArticles: results,
-          totalPages: pages,
+          articles: data.response.results,
+          totalArticles: data.response.total,
+          totalPages: data.response.pages,
           isLoading: false,
         })
-      })
-      .catch((err) => {
-        console.log(err)
       })
   }
 
   componentDidUpdate(prevProp, prevState) {
+    const searchTerm = this.props.navigation.getParam('searchTerm')
+
     if (prevState.currentPage !== this.state.currentPage) {
       api
         .fetchArticles({
           page: this.state.currentPage,
-          'show-fields': 'thumbnail',
+          q: searchTerm,
           'page-size': 5,
-          'order-by': 'newest',
+          'show-fields': 'thumbnail',
         })
         .then(({ data }) => {
-          const { results } = data.response
           this.setState({
-            newestArticles: results,
+            articles: data.response.results,
             isLoading: false,
           })
         })
@@ -62,18 +61,29 @@ class ArticleList extends Component {
   }
 
   render() {
-    const { isLoading, newestArticles, currentPage, totalPages } = this.state
+    const {
+      articles,
+      totalArticles,
+      currentPage,
+      totalPages,
+      isLoading,
+    } = this.state
+
+    const searchTerm = this.props.navigation.getParam('searchTerm')
 
     return (
-      <View style={styles.container}>
-        {isLoading && <Text>Loading...</Text>}
-
+      <View>
+        {isLoading && <Text>Loading articles...</Text>}
         <FlatList
           ref={'flatListRef'}
           ListHeaderComponent={
-            <Text style={styles.mostRecentText}>Latest News</Text>
+            <>
+              <Text>
+                {totalArticles} results for "{searchTerm}"
+              </Text>
+            </>
           }
-          data={newestArticles}
+          data={articles}
           renderItem={({ item }) => {
             return (
               <ArticleCard
@@ -83,33 +93,18 @@ class ArticleList extends Component {
             )
           }}
           ListFooterComponent={
-            <Pagination
-              handlePageClick={this.handlePageClick.bind(this)}
-              currentPage={currentPage}
-              totalPages={totalPages}
-            />
+            <>
+              <Pagination
+                handlePageClick={this.handlePageClick.bind(this)}
+                currentPage={currentPage}
+                totalPages={totalPages}
+              />
+            </>
           }
         />
       </View>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  mostRecentText: {
-    fontSize: 25,
-    fontWeight: 'bold',
-    color: 'white',
-    backgroundColor: '#191970',
-    paddingLeft: 20,
-  },
-})
 
 export default ArticleList
