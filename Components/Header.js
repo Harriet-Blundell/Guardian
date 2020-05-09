@@ -15,10 +15,9 @@ const Header = () => {
 const styles = StyleSheet.create({
   logo: {
     resizeMode: 'contain',
-    height: 105,
-    width: 400,
-    marginTop: 10,
-    marginBottom: 10,
+    width: 200,
+    borderRadius: 50,
+    marginLeft: 80,
   },
 })
 
