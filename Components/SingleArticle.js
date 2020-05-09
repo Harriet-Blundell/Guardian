@@ -3,7 +3,6 @@ import {
   View,
   Text,
   ScrollView,
-  Button,
   StyleSheet,
   Image,
   TouchableOpacity,
@@ -34,21 +33,17 @@ class SingleArticle extends Component {
   render() {
     const { singleArticle, isLoading } = this.state
 
-    console.log('SINGLE ARTICLE', singleArticle, 'SINGLE ARTICLE')
-
     const { webPublicationDate } = this.state.singleArticle
     return (
       <View style={styles.singleArticleContainer}>
         <ScrollView>
           {isLoading && <Text>Loading article...</Text>}
 
-          {singleArticle.fields ? (
+          {!isLoading && singleArticle.fields.thumbnail && (
             <Image
               style={styles.singleArticleImage}
               source={{ uri: singleArticle.fields.thumbnail }}
             />
-          ) : (
-            <Image style={{ display: 'none' }} />
           )}
 
           <Text style={styles.singleArticleTitle}>
@@ -56,7 +51,7 @@ class SingleArticle extends Component {
           </Text>
 
           {!isLoading && (
-            <Text style={{ paddingLeft: 30, paddingRight: 30 }}>
+            <Text style={styles.mainContentContainer}>
               <Text style={styles.singleArticleDate}>
                 Published: {formatDate(webPublicationDate)} |{' '}
                 <Text style={styles.singleArticleSection}>
@@ -94,13 +89,10 @@ const styles = StyleSheet.create({
     paddingRight: 30,
     marginTop: 10,
     marginBottom: 10,
-    borderWidth: 1,
-    borderRadius: 1,
-    backgroundColor: '#F8F8FF',
-    borderColor: '#F8F8FF',
-    borderBottomWidth: 1,
-    borderTopWidth: 1.5,
-    elevation: 5,
+    borderBottomWidth: 3,
+    marginBottom: 10,
+    paddingBottom: 20,
+    borderBottomColor: '#DCDCDC',
   },
 
   singleArticleImage: {
@@ -146,6 +138,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     color: 'white',
     elevation: 5,
+  },
+
+  mainContentContainer: {
+    paddingLeft: 30,
+    paddingRight: 30,
+    marginTop: 10,
   },
 })
 
