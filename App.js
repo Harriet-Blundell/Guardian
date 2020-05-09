@@ -1,9 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, ScrollView } from 'react-native'
-import Header from './Components/Header.js'
-// import SubscribeInput from './Components/SubscribeInput.js'
-// import SearchInput from './Components/SearchInput.js'
-// import ArticleList from './Components/ArticleList.js'
+import { StyleSheet } from 'react-native'
 import Navigator from './Routes/homeStack.js'
 
 const App = () => {
