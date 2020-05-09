@@ -1,5 +1,13 @@
 import React, { Component } from 'react'
-import { View, Text, ScrollView, Button, StyleSheet, Image } from 'react-native'
+import {
+  View,
+  Text,
+  ScrollView,
+  Button,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+} from 'react-native'
 import * as api from '../api.js'
 import { formatDate } from '../utils.js'
 
@@ -26,21 +34,73 @@ class SingleArticle extends Component {
   render() {
     const { singleArticle, isLoading } = this.state
 
-    {
-      !isLoading && console.log(singleArticle.fields)
-    }
+    console.log('SINGLE ARTICLE', singleArticle, 'SINGLE ARTICLE')
 
-    return <View></View>
+    const { webPublicationDate } = this.state.singleArticle
+    return (
+      <View style={styles.singleArticleContainer}>
+        <ScrollView>
+          {isLoading && <Text>Loading article...</Text>}
+
+          {singleArticle.fields ? (
+            <Image
+              style={styles.singleArticleImage}
+              source={{ uri: singleArticle.fields.thumbnail }}
+            />
+          ) : (
+            <Image style={{ display: 'none' }} />
+          )}
+
+          <Text style={styles.singleArticleTitle}>
+            {singleArticle.webTitle}
+          </Text>
+
+          {!isLoading && (
+            <Text style={{ paddingLeft: 30, paddingRight: 30 }}>
+              <Text style={styles.singleArticleDate}>
+                Published: {formatDate(webPublicationDate)} |{' '}
+                <Text style={styles.singleArticleSection}>
+                  {singleArticle.sectionName}
+                </Text>
+              </Text>
+              {'\n'}
+              {'\n'}
+              <Text style={styles.singleArticleBodyText}>
+                {singleArticle.fields.bodyText}
+              </Text>
+            </Text>
+          )}
+
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Home')}
+          >
+            <Text style={styles.backBtn}>BACK</Text>
+          </TouchableOpacity>
+        </ScrollView>
+      </View>
+    )
   }
 }
 
 const styles = StyleSheet.create({
+  singleArticleContainer: {
+    backgroundColor: '#FFFAFA',
+  },
+
   singleArticleTitle: {
     fontSize: 25,
     fontWeight: 'bold',
-    paddingLeft: 20,
+    paddingLeft: 30,
+    paddingRight: 30,
     marginTop: 10,
     marginBottom: 10,
+    borderWidth: 1,
+    borderRadius: 1,
+    backgroundColor: '#F8F8FF',
+    borderColor: '#F8F8FF',
+    borderBottomWidth: 1,
+    borderTopWidth: 1.5,
+    elevation: 5,
   },
 
   singleArticleImage: {
@@ -51,7 +111,8 @@ const styles = StyleSheet.create({
   },
 
   singleArticleDate: {
-    marginLeft: 20,
+    flex: 1,
+    flexWrap: 'wrap',
     fontSize: 18,
     marginBottom: 10,
     fontWeight: 'bold',
@@ -70,6 +131,21 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     marginBottom: 10,
+    lineHeight: 32,
+  },
+
+  backBtn: {
+    fontSize: 15,
+    width: 100,
+    borderRadius: 5,
+    backgroundColor: '#4682B4',
+    textAlign: 'center',
+    padding: 10,
+    marginTop: 10,
+    marginLeft: 150,
+    marginBottom: 10,
+    color: 'white',
+    elevation: 5,
   },
 })
 

@@ -71,7 +71,7 @@ class ArticleList extends Component {
         <FlatList
           ref={'flatListRef'}
           ListHeaderComponent={
-            <Text style={styles.mostRecentText}>Most Recent</Text>
+            <Text style={styles.mostRecentText}>Latest News</Text>
           }
           data={newestArticles}
           renderItem={({ item }) => {
