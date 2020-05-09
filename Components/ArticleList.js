@@ -1,13 +1,6 @@
 import React, { Component } from 'react'
 import * as api from '../api'
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  ScrollView,
-  Button,
-} from 'react-native'
+import { StyleSheet, Text, View, FlatList, ScrollView } from 'react-native'
 import ArticleCard from './ArticleCard.js'
 import Pagination from './Pagination.js'
 
@@ -51,7 +44,7 @@ class ArticleList extends Component {
           'order-by': 'newest',
         })
         .then(({ data }) => {
-          const { results, currentPage, pages } = data.response
+          const { results } = data.response
           this.setState({
             newestArticles: results,
             isLoading: false,
@@ -65,7 +58,7 @@ class ArticleList extends Component {
       currentPage: this.state.currentPage + number,
       isLoading: true,
     })
-    this.refs._scrollView.scrollTo({ x: 0 })
+    this.refs.flatListRef.scrollToOffset({ animated: true, offset: 0 })
   }
 
   render() {
@@ -75,29 +68,28 @@ class ArticleList extends Component {
       <View style={styles.container}>
         {isLoading && <Text>Loading...</Text>}
 
-        <ScrollView ref='_scrollView'>
-          <Text style={styles.mostRecentText}>Most Recent</Text>
-
-          <View>
-            <FlatList
-              data={newestArticles}
-              renderItem={({ item }) => {
-                return (
-                  <ArticleCard
-                    articleInfo={item}
-                    navigation={this.props.navigation}
-                  />
-                )
-              }}
+        <FlatList
+          ref={'flatListRef'}
+          ListHeaderComponent={
+            <Text style={styles.mostRecentText}>Most Recent</Text>
+          }
+          data={newestArticles}
+          renderItem={({ item }) => {
+            return (
+              <ArticleCard
+                articleInfo={item}
+                navigation={this.props.navigation}
+              />
+            )
+          }}
+          ListFooterComponent={
+            <Pagination
+              handlePageClick={this.handlePageClick.bind(this)}
+              currentPage={currentPage}
+              totalPages={totalPages}
             />
-          </View>
-
-          <Pagination
-            handlePageClick={this.handlePageClick.bind(this)}
-            currentPage={currentPage}
-            totalPages={totalPages}
-          />
-        </ScrollView>
+          }
+        />
       </View>
     )
   }
