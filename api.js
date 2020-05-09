@@ -2,7 +2,7 @@ import axios from 'axios'
 import config from './config.js'
 
 const Guardian = axios.create({
-  baseURL: 'https://content.guardianapis.com/',
+  baseURL: 'https://content.guardianapis.com',
   headers: { 'api-key': config.apiKey },
 })
 
@@ -18,8 +18,8 @@ export const fetchArticles = (query) => {
     })
 }
 
-export const fetchSingleArticle = (qeury) => {
-  return Guardian.get('/search', {
+export const fetchSingleArticle = (articleId, query) => {
+  return Guardian.get(`/${articleId}`, {
     params: query,
   })
     .then((data) => {
