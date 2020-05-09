@@ -1,29 +1,30 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { formatDate } from '../utils.js'
-import { Linking } from 'expo'
 
 const ArticleCard = (props) => {
   const {
     webPublicationDate,
     webTitle,
-    webUrl,
     sectionName,
     fields,
-    apiUrl,
+    id,
   } = props.articleInfo
 
   const { navigation } = props
 
   return (
     <View style={styles.articleContainer}>
-      {fields && (
-        <Image style={styles.images} source={{ uri: fields.thumbnail }} />
-      )}
-
       <TouchableOpacity
-        onPress={() => navigation.navigate('SingleArticle', { apiUrl: apiUrl })}
+        onPress={() =>
+          navigation.navigate('SingleArticle', {
+            id: id,
+          })
+        }
       >
+        {fields && (
+          <Image style={styles.images} source={{ uri: fields.thumbnail }} />
+        )}
         <Text style={styles.articleTitle}>{webTitle}</Text>
       </TouchableOpacity>
 
