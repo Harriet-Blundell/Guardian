@@ -15,7 +15,6 @@ class ArticleList extends Component {
   state = {
     newestArticles: [],
     isLoading: true,
-    error: null,
   }
 
   componentDidMount() {
@@ -33,9 +32,6 @@ class ArticleList extends Component {
           totalPages: pages,
           isLoading: false,
         })
-      })
-      .catch((err) => {
-        console.log(err)
       })
   }
 
