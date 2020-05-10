@@ -9,7 +9,7 @@ import {
 import * as api from '../api.js'
 import ArticleCard from './ArticleCard.js'
 import Pagination from '../Components/Pagination.js'
-import SubscribeInput from '../Components/SubscribeInput'
+import SubscribeInput from '../Components/SubscribeInput.js'
 
 class ArticleList extends Component {
   state = {
@@ -17,6 +17,7 @@ class ArticleList extends Component {
     currentPage: 1,
     totalPages: 0,
     totalArticles: '',
+    searchTerm: '',
     isLoading: true,
   }
 
@@ -42,7 +43,10 @@ class ArticleList extends Component {
   componentDidUpdate(prevProp, prevState) {
     const searchTerm = this.props.navigation.getParam('searchTerm')
 
-    if (prevState.currentPage !== this.state.currentPage) {
+    if (
+      prevState.currentPage !== this.state.currentPage ||
+      prevState.searchTerm !== this.state.searchTerm
+    ) {
       api
         .fetchArticles({
           page: this.state.currentPage,
@@ -85,6 +89,9 @@ class ArticleList extends Component {
           ref={'flatListRef'}
           ListHeaderComponent={
             <>
+              <Text style={styles.articlesListTitle}>
+                Articles related to "{searchTerm}"
+              </Text>
               <Text style={styles.totalPagesText}>
                 {totalArticles} results for "{searchTerm}"
               </Text>
@@ -119,7 +126,7 @@ class ArticleList extends Component {
 
 const styles = StyleSheet.create({
   totalPagesText: {
-    fontSize: 20,
+    fontSize: 17,
     textAlign: 'center',
     marginTop: 20,
     backgroundColor: 'white',
@@ -127,8 +134,18 @@ const styles = StyleSheet.create({
     marginLeft: 110,
     borderRadius: 10,
     paddingTop: 8,
-    paddingBottom: 8,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 10,
     elevation: 10,
+  },
+
+  articlesListTitle: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: 'white',
+    backgroundColor: '#191970',
+    paddingLeft: 20,
   },
 })
 

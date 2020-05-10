@@ -41,7 +41,7 @@ const screens = {
 
 const HomeStack = createStackNavigator(screens, {
   defaultNavigationOptions: {
-    headerTitle: (props) => <Header {...props} />,
+    headerTitle: () => <Header />,
   },
 })
 
