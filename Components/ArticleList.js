@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList, StyleSheet } from 'react-native'
 import * as api from '../api.js'
 import ArticleCard from './ArticleCard.js'
 import Pagination from '../Components/Pagination.js'
@@ -78,7 +78,7 @@ class ArticleList extends Component {
           ref={'flatListRef'}
           ListHeaderComponent={
             <>
-              <Text>
+              <Text style={styles.totalPagesText}>
                 {totalArticles} results for "{searchTerm}"
               </Text>
             </>
@@ -94,11 +94,13 @@ class ArticleList extends Component {
           }}
           ListFooterComponent={
             <>
-              <Pagination
-                handlePageClick={this.handlePageClick.bind(this)}
-                currentPage={currentPage}
-                totalPages={totalPages}
-              />
+              {totalArticles !== 0 && (
+                <Pagination
+                  handlePageClick={this.handlePageClick.bind(this)}
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                />
+              )}
             </>
           }
         />
@@ -106,5 +108,14 @@ class ArticleList extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  totalPagesText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: 20,
+  },
+})
 
 export default ArticleList
