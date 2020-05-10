@@ -27,6 +27,9 @@ class SearchInput extends Component {
       this.props.navigation.navigate('ArticleList', {
         searchTerm: this.state.searchTerm,
       })
+      this.setState({
+        searchTerm: '',
+      })
     }
   }
 
@@ -38,6 +41,7 @@ class SearchInput extends Component {
           style={styles.searchInputText}
           onChangeText={(value) => this.handleSearchInput(value)}
           onSubmitEditing={() => this.handleSubmit()}
+          value={this.state.searchTerm}
         />
 
         <TouchableOpacity onPress={() => this.handleSubmit()}>
