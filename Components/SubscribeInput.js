@@ -8,6 +8,7 @@ import {
   Alert,
   Modal,
   TouchableHighlight,
+  Keyboard,
 } from 'react-native'
 
 class Subscribe extends Component {
@@ -18,7 +19,7 @@ class Subscribe extends Component {
 
   handleChange = (value) => {
     this.setState({
-      email: value,
+      email: value.trim(),
     })
   }
 
@@ -72,6 +73,7 @@ class Subscribe extends Component {
                 value={email}
                 onChangeText={(value) => this.handleChange(value)}
                 placeholder='Enter e-mail address'
+                onSubmitEditing={() => this.handleSubmit()}
               />
 
               <TouchableHighlight
