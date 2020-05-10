@@ -8,7 +8,7 @@ import {
   Alert,
   Modal,
   TouchableHighlight,
-  Keyboard,
+  TouchableWithoutFeedback,
 } from 'react-native'
 
 class Subscribe extends Component {
@@ -87,6 +87,14 @@ class Subscribe extends Component {
                   </View>
                 </TouchableOpacity>
               </TouchableHighlight>
+
+              <TouchableWithoutFeedback
+                onPress={() => this.setModalVisible(!this.state.showModal)}
+              >
+                <View style={styles.closeModalBtn}>
+                  <Text style={styles.closeModalText}>CLOSE</Text>
+                </View>
+              </TouchableWithoutFeedback>
             </View>
           </View>
         </Modal>
@@ -128,7 +136,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
-    height: 200,
+    height: 250,
     width: 350,
     alignItems: 'center',
     elevation: 10,
@@ -146,7 +154,7 @@ const styles = StyleSheet.create({
     width: 300,
     marginLeft: 50,
     marginRight: 50,
-    marginTop: 10,
+    marginTop: 15,
     textAlign: 'center',
     fontSize: 20,
     elevation: 5,
@@ -161,6 +169,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: 'black',
     marginBottom: 10,
+    marginTop: 10,
     elevation: 5,
   },
 
@@ -177,11 +186,33 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: '#4682B4',
     marginTop: 40,
+    marginBottom: 20,
     elevation: 5,
   },
 
   submitBtnText: {
     color: 'white',
+    fontSize: 17,
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+
+  closeModalBtn: {
+    justifyContent: 'center',
+    width: 350,
+    height: 35,
+    backgroundColor: 'white',
+    marginTop: 30,
+    backgroundColor: '#E0E0E0',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    elevation: 10,
+  },
+
+  closeModalText: {
+    color: 'white',
+    fontSize: 17,
+    color: '#4682B4',
     textAlign: 'center',
     fontWeight: 'bold',
   },
