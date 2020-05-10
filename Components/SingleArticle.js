@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native'
 import * as api from '../api.js'
 import { formatDate } from '../utils.js'
@@ -34,10 +35,11 @@ class SingleArticle extends Component {
     const { singleArticle, isLoading } = this.state
 
     const { webPublicationDate } = this.state.singleArticle
+
     return (
       <View style={styles.singleArticleContainer}>
         <ScrollView>
-          {isLoading && <Text>Loading article...</Text>}
+          {isLoading && <ActivityIndicator size='large' color='#4682B4' />}
 
           {!isLoading && singleArticle.fields.thumbnail && (
             <Image
@@ -60,6 +62,7 @@ class SingleArticle extends Component {
               </Text>
               {'\n'}
               {'\n'}
+
               <Text style={styles.singleArticleBodyText}>
                 {singleArticle.fields.bodyText}
               </Text>

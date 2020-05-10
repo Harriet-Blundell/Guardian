@@ -1,16 +1,19 @@
 import React, { Component } from 'react'
 import * as api from '../api'
-import { StyleSheet, Text, View, FlatList } from 'react-native'
+import {
+  StyleSheet,
+  ActivityIndicator,
+  View,
+  FlatList,
+  Text,
+} from 'react-native'
 import ArticleCard from './ArticleCard.js'
-// import Pagination from './Pagination.js'
 import SubscribeInput from './SubscribeInput.js'
 import SearchInput from './SearchInput.js'
 
 class ArticleList extends Component {
   state = {
     newestArticles: [],
-    currentPage: 1,
-    totalPages: 0,
     isLoading: true,
     error: null,
   }
@@ -55,20 +58,12 @@ class ArticleList extends Component {
     }
   }
 
-  // handlePageClick(number) {
-  //   this.setState({
-  //     currentPage: this.state.currentPage + number,
-  //     isLoading: true,
-  //   })
-  //   this.refs.flatListRef.scrollToOffset({ animated: true, offset: 0 })
-  // }
-
   render() {
-    const { isLoading, newestArticles, currentPage, totalPages } = this.state
+    const { isLoading, newestArticles } = this.state
 
     return (
       <View style={styles.container}>
-        {isLoading && <Text>Loading...</Text>}
+        {isLoading && <ActivityIndicator size='large' color='#4682B4' />}
         <FlatList
           ref={'flatListRef'}
           ListHeaderComponent={
@@ -88,11 +83,6 @@ class ArticleList extends Component {
           }}
           ListFooterComponent={
             <>
-              {/* <Pagination
-                handlePageClick={this.handlePageClick.bind(this)}
-                currentPage={currentPage}
-                totalPages={totalPages}
-              /> */}
               <SubscribeInput />
             </>
           }
