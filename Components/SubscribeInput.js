@@ -45,6 +45,7 @@ class Subscribe extends Component {
   setModalVisible(value) {
     this.setState({
       showModal: value,
+      email: '',
     })
   }
 
@@ -105,11 +106,11 @@ class Subscribe extends Component {
           </Text>
         </Text>
 
-        <TouchableOpacity onPress={() => this.setModalVisible(true)}>
+        <TouchableWithoutFeedback onPress={() => this.setModalVisible(true)}>
           <View style={styles.subscribeBtnContainer}>
             <Text style={styles.subscribeBtnText}>SUBSCRIBE</Text>
           </View>
-        </TouchableOpacity>
+        </TouchableWithoutFeedback>
       </View>
     )
   }
