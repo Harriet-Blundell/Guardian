@@ -3,6 +3,7 @@ import { View, Text, FlatList, StyleSheet } from 'react-native'
 import * as api from '../api.js'
 import ArticleCard from './ArticleCard.js'
 import Pagination from '../Components/Pagination.js'
+import SubscribeInput from '../Components/SubscribeInput'
 
 class ArticleList extends Component {
   state = {
@@ -101,6 +102,7 @@ class ArticleList extends Component {
                   totalPages={totalPages}
                 />
               )}
+              <SubscribeInput />
             </>
           }
         />

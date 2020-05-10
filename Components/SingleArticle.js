@@ -68,12 +68,6 @@ class SingleArticle extends Component {
               </Text>
             </Text>
           )}
-
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('ArticleList')}
-          >
-            <Text style={styles.backBtn}>BACK</Text>
-          </TouchableOpacity>
         </ScrollView>
       </View>
     )

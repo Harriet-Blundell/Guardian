@@ -12,9 +12,6 @@ const screens = {
   },
   SingleArticle: {
     screen: SingleArticle,
-    navigationOptions: {
-      headerLeft: null,
-    },
   },
   ArticleList: {
     screen: ArticleList,
