@@ -13,7 +13,9 @@ const Pagination = (props) => {
         }}
       >
         <View
-          style={currentPage === 1 ? styles.buttonPrevOne : styles.buttonPrev}
+          style={
+            currentPage === 1 ? styles.buttonPrevInvalid : styles.buttonPrev
+          }
         >
           <Text style={styles.buttonPrevText}>PREV</Text>
         </View>
@@ -28,8 +30,15 @@ const Pagination = (props) => {
         onPress={() => {
           handlePageClick(1)
         }}
+        disabled={currentPage === totalPages}
       >
-        <View style={styles.buttonNext}>
+        <View
+          style={
+            currentPage === totalPages
+              ? styles.buttonNextInvalid
+              : styles.buttonNext
+          }
+        >
           <Text style={styles.buttonNextText}>NEXT</Text>
         </View>
       </TouchableOpacity>
@@ -58,7 +67,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#4682B4',
   },
 
-  buttonPrevOne: {
+  buttonPrevInvalid: {
     backgroundColor: '#808080',
     width: 90,
     borderRadius: 5,
@@ -82,6 +91,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     padding: 10,
     color: 'white',
+  },
+
+  buttonNextInvalid: {
+    backgroundColor: '#808080',
+    width: 90,
+    borderRadius: 5,
+    alignItems: 'center',
   },
 })
 
