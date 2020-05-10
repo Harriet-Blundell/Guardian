@@ -1,5 +1,11 @@
 import React, { Component } from 'react'
-import { View, Text, FlatList, StyleSheet } from 'react-native'
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  ActivityIndicator,
+} from 'react-native'
 import * as api from '../api.js'
 import ArticleCard from './ArticleCard.js'
 import Pagination from '../Components/Pagination.js'
@@ -74,7 +80,7 @@ class ArticleList extends Component {
 
     return (
       <View>
-        {isLoading && <Text>Loading articles...</Text>}
+        {isLoading && <ActivityIndicator size='large' color='#4682B4' />}
         <FlatList
           ref={'flatListRef'}
           ListHeaderComponent={
@@ -114,9 +120,15 @@ class ArticleList extends Component {
 const styles = StyleSheet.create({
   totalPagesText: {
     fontSize: 20,
-    fontWeight: 'bold',
     textAlign: 'center',
     marginTop: 20,
+    backgroundColor: 'white',
+    width: 200,
+    marginLeft: 110,
+    borderRadius: 10,
+    paddingTop: 8,
+    paddingBottom: 8,
+    elevation: 10,
   },
 })
 

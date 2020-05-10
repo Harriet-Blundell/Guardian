@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Image, StyleSheet } from 'react-native'
 
-const Header = () => {
+const Header = (props) => {
   return (
     <View style={styles.logoContainer}>
       <Image

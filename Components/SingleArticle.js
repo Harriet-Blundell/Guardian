@@ -5,7 +5,6 @@ import {
   ScrollView,
   StyleSheet,
   Image,
-  TouchableOpacity,
   ActivityIndicator,
 } from 'react-native'
 import * as api from '../api.js'
