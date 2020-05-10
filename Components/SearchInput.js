@@ -5,17 +5,29 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
+  Alert,
 } from 'react-native'
 
 class SearchInput extends Component {
   state = {
     searchTerm: '',
+    error: '',
   }
 
   handleSearchInput(value) {
     this.setState({
       searchTerm: value,
     })
+  }
+
+  handleSubmit() {
+    if (this.state.searchTerm === '') {
+      Alert.alert('Please fill in the search field')
+    } else {
+      this.props.navigation.navigate('ArticleList', {
+        searchTerm: this.state.searchTerm,
+      })
+    }
   }
 
   render() {
@@ -25,15 +37,10 @@ class SearchInput extends Component {
           placeholder='Search...'
           style={styles.searchInputText}
           onChangeText={(value) => this.handleSearchInput(value)}
+          onSubmitEditing={() => this.handleSubmit()}
         />
 
-        <TouchableOpacity
-          onPress={() =>
-            this.props.navigation.navigate('ArticleList', {
-              searchTerm: this.state.searchTerm,
-            })
-          }
-        >
+        <TouchableOpacity onPress={() => this.handleSubmit()}>
           <View style={styles.searchBtn}>
             <Image
               source={require('../Images/searchIcon2.png')}

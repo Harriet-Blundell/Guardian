@@ -131,11 +131,7 @@ const styles = StyleSheet.create({
     height: 200,
     width: 350,
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
+    elevation: 10,
   },
 
   subscribeText: {
