@@ -4,7 +4,7 @@
 
 - [General Information](#General-Information)
 - [Getting Started](#Getting-Started)
-- [Tech Stack](#Tech-Stack)
+- [Tech Used](#Tech-Used)
 
 ## General Information:
 
