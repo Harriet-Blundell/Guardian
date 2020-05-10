@@ -9,23 +9,15 @@ const Guardian = axios.create({
 export const fetchArticles = (query) => {
   return Guardian.get('/search', {
     params: query,
+  }).then((data) => {
+    return data
   })
-    .then((data) => {
-      return data
-    })
-    .catch((err) => {
-      console.log(err)
-    })
 }
 
 export const fetchSingleArticle = (articleId, query) => {
   return Guardian.get(`/${articleId}`, {
     params: query,
+  }).then((data) => {
+    return data
   })
-    .then((data) => {
-      return data
-    })
-    .catch((err) => {
-      console.log(err)
-    })
 }

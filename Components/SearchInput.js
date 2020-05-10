@@ -11,7 +11,6 @@ import {
 class SearchInput extends Component {
   state = {
     searchTerm: '',
-    error: '',
   }
 
   handleSearchInput(value) {
