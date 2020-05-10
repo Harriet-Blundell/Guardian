@@ -8,13 +8,15 @@
 
 ## General Information:
 
-This project, the Guardian, uses React Native to build a front-end UI and serves as an online daily newspaper where users can view most recent articles, subscribe to the Guardian, search articles by keyword(s) and view the single article.
+This project, Guardian Summary, uses the Guardians own API to retrieve articles and article information from The Guardian and serve them to the user in a minimalist user-friendly mobile app.
+Users can search for articles and browse a paginated list of returned results. Clicking articles on the search page allows the user to read the full unaltered article text.
+Users also have the option to enter an email address in order to subscribe in the future.
 
 ---
 
 ## Getting Started:
 
-This section will expalin how you can clone a copy of this repository to run on your own local machine.
+This section will explain how you can clone a copy of this repository to run on your own local machine.
 
 1. Clone the repository link below into your chosen folder
 
@@ -38,6 +40,8 @@ npm install
 
 4. Get started by registering for a developer key by using [The Guardian API key](https://open-platform.theguardian.com/access/) and create a **config.js** file in TheGuardian directory and paste the code below into the file:
 
+Replace **"your API key"** with the API key the Guardian provides you
+
 ```bash
 const config = {
     apiKey: "your API key",
@@ -56,8 +60,8 @@ expo start
 
 ---
 
-## Tech Stack:
+## Tech Used:
 
-- React Native
-- Axios
-- Mocha and Chai
+- React Native - open-source mobile application framework
+- Axios - http client for requesting API data
+- Mocha and Chai - JavaScript test frameworks
