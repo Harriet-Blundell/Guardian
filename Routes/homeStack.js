@@ -8,15 +8,16 @@ import React from 'react'
 const screens = {
   Home: {
     screen: Home,
-    navigationOptions: {
-      headerStyle: {
-        elevation: 10,
-      },
+    navigationOptions: ({ navigation }) => {
+      return {
+        headerTitle: () => <Header navigation={navigation} />,
+      }
     },
   },
   SingleArticle: {
     screen: SingleArticle,
     navigationOptions: {
+      headerTitle: '',
       headerStyle: {
         elevation: 10,
       },
@@ -28,6 +29,7 @@ const screens = {
   ArticleList: {
     screen: ArticleList,
     navigationOptions: {
+      headerTitle: () => <Header />,
       headerStyle: {
         elevation: 10,
       },
@@ -38,10 +40,6 @@ const screens = {
   },
 }
 
-const HomeStack = createStackNavigator(screens, {
-  defaultNavigationOptions: {
-    headerTitle: () => <Header />,
-  },
-})
+const HomeStack = createStackNavigator(screens, {})
 
 export default HomeStack

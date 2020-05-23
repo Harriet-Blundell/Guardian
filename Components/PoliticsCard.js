@@ -1,10 +1,10 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 
-const Politics = (props) => {
+const Politics = () => {
   return (
     <View>
-      <Text>Politics screen</Text>
+      <Text>THIS IS</Text>
     </View>
   )
 }
