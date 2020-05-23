@@ -15,7 +15,7 @@ class SearchInput extends Component {
 
   handleSearchInput(value) {
     this.setState({
-      searchTerm: value,
+      searchTerm: value.trim(),
     })
   }
 
