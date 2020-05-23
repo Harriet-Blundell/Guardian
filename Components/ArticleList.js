@@ -43,10 +43,7 @@ class ArticleList extends Component {
   componentDidUpdate(prevProp, prevState) {
     const searchTerm = this.props.navigation.getParam('searchTerm')
 
-    if (
-      prevState.currentPage !== this.state.currentPage ||
-      prevState.searchTerm !== this.state.searchTerm
-    ) {
+    if (prevState.currentPage !== this.state.currentPage) {
       api
         .fetchArticles({
           page: this.state.currentPage,
