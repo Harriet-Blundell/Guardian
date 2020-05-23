@@ -1,14 +1,14 @@
 import { createDrawerNavigator } from 'react-navigation-drawer'
 import { createAppContainer } from 'react-navigation'
 import HomeStack from './homeStack'
-import PoliticsStack from './politicsStack'
+import SectionStack from './sectionStack.js'
 
 const RootDrawNavigator = createDrawerNavigator({
   Home: {
     screen: HomeStack,
   },
-  Politics: {
-    screen: PoliticsStack,
+  Topics: {
+    screen: SectionStack,
   },
 })
 

@@ -1,11 +1,11 @@
 import { createStackNavigator } from 'react-navigation-stack'
 import Header from '../Components/Header'
 import React from 'react'
-import PoliticsCard from '../Components/PoliticsCard.js'
+import SectionList from '../Components/SectionList.js'
 
 const screens = {
   Politics: {
-    screen: PoliticsCard,
+    screen: SectionList,
     navigationOptions: ({ navigation }) => {
       return {
         headerTitle: () => <Header navigation={navigation} title='Politics' />,

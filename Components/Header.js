@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Image, StyleSheet, Text } from 'react-native'
+import { View, Image, StyleSheet } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 
 const Header = ({ navigation, title }) => {

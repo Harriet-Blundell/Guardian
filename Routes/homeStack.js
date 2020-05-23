@@ -4,6 +4,7 @@ import SingleArticle from '../Components/SingleArticle'
 import ArticleList from '../Components/ArticleList'
 import Header from '../Components/Header'
 import React from 'react'
+import StackNavHeader from '../Components/StackNavHeader'
 
 const screens = {
   Home: {
@@ -17,24 +18,24 @@ const screens = {
   SingleArticle: {
     screen: SingleArticle,
     navigationOptions: {
-      headerTitle: '',
+      headerTitle: () => <StackNavHeader />,
       headerStyle: {
         elevation: 10,
       },
       headerTitleContainerStyle: {
-        left: 25,
+        left: 50,
       },
     },
   },
   ArticleList: {
     screen: ArticleList,
     navigationOptions: {
-      headerTitle: () => <Header />,
+      headerTitle: () => <StackNavHeader />,
       headerStyle: {
         elevation: 10,
       },
       headerTitleContainerStyle: {
-        left: 25,
+        left: 50,
       },
     },
   },
